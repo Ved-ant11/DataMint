@@ -155,49 +155,10 @@ export const convertToExcel = async (req, res) => {
   }
 };
 
-// export const downloadExcel = async (req, res) => {
-//   try {
-//     const { filename } = req.params;
-
-//     // Security validation
-//     if (
-//       !filename ||
-//       filename.includes("..") ||
-//       filename.includes("/") ||
-//       filename.includes("\\")
-//     ) {
-//       return res.status(400).json({ error: "Invalid filename" });
-//     }
-
-//     const outputDir = path.resolve(__dirname, "..", "exports");
-//     const filePath = path.join(outputDir, filename);
-
-//     // Verify file exists
-//     if (!fs.existsSync(filePath)) {
-//       return res.status(404).json({ error: "File not found" });
-//     }
-
-//     // Set proper headers
-//     res.setHeader(
-//       "Content-Type",
-//       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-//     );
-//     res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
-
-//     // Stream the file directly
-//     const fileStream = fs.createReadStream(filePath);
-//     fileStream.pipe(res);
-//   } catch (error) {
-//     console.error("Download error:", error);
-//     res.status(500).json({ error: "Download failed" });
-//   }
-// };
-
 export const downloadExcel = async (req, res) => {
   try {
     const { filename } = req.params;
 
-    // Security validation
     if (
       !filename ||
       filename.includes("..") ||
@@ -225,7 +186,6 @@ export const downloadExcel = async (req, res) => {
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Content-Security-Policy", "default-src 'self'");
 
-    // Stream the file
     const fileStream = fs.createReadStream(filePath);
     fileStream.pipe(res);
   } catch (error) {
