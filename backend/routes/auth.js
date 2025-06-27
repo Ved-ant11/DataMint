@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
-router.get('/profile', protect, getCurrentUser);
+router.get('/me', protect, getCurrentUser);
 router.get("/test", (req, res) => {
   res.json({ message: "Auth routes are working!" });
 });

@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
-import { configDotenv } from "dotenv";
-configDotenv();
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const protect = async (req, res, next) => {
   let token;
@@ -11,14 +12,10 @@ export const protect = async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      // Get token from header
       token = req.headers.authorization.split(" ")[1];
-
-      // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       console.log("Decoded token:", decoded);
 
-      // Get user from token
       req.user = await User.findById(decoded.userId).select("-password");
 
       if (!req.user) {
@@ -27,11 +24,10 @@ export const protect = async (req, res, next) => {
           .json({ message: "Not authorized, user not found" });
       }
 
-      // Proceed to the next middleware or route handler
       next();
     } catch (error) {
       console.error(error);
-      
+
       if (error.name === "TokenExpiredError") {
         return res
           .status(401)
@@ -41,6 +37,7 @@ export const protect = async (req, res, next) => {
           .status(401)
           .json({ message: "Not authorized, invalid token" });
       }
+
       return res.status(401).json({ message: "Not authorized, token failed" });
     }
   } else {

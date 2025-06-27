@@ -88,15 +88,26 @@ export const loginUser = async (req, res) => {
 
 export const getCurrentUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId).select("-password");
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    // User should be attached to req by your protect middleware
+    if (!req.user) {
+      return res.status(401).json({ error: "Not authorized" });
     }
-    res.status(200).json(user);
+
+    // Return user data without sensitive information
+    res.json({
+      success: true,
+      user: {
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email,
+        createdAt: req.user.createdAt,
+      },
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error("Failed to fetch current user:", error);
+    res.status(500).json({ error: "Server error" });
   }
 };
+
 
 export { generateToken };
