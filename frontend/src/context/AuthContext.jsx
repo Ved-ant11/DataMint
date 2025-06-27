@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token) => {
     localStorage.setItem("token", token);
-    // Optionally fetch user info here
   };
 
   const logout = () => {

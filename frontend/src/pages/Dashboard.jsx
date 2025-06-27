@@ -17,7 +17,7 @@ const Dashboard = () => {
   const cardRefs = useRef([]);
 
   useEffect(() => {
-    // Card stagger animation
+    
     gsap.fromTo(
       cardRefs.current,
       { y: 50, opacity: 0 },
@@ -34,7 +34,7 @@ const Dashboard = () => {
       }
     );
 
-    // Stats counter animation
+    
     gsap.utils.toArray(".stat-number").forEach((stat) => {
       const target = +stat.getAttribute("data-target");
       gsap.to(stat, {
@@ -65,7 +65,6 @@ const Dashboard = () => {
         </p>
       </motion.div>
 
-      {/* Stats Section */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
         {[
           {
@@ -112,7 +111,7 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* Features Section */}
+      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         {[
           {
@@ -157,7 +156,7 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* Activity Timeline */}
+      
       <motion.div
         ref={(el) => (cardRefs.current[7] = el)}
         className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6"

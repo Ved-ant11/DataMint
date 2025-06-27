@@ -5,7 +5,7 @@ import { configDotenv } from "dotenv";
 
 configDotenv();
 
-// Generate JWT token utility
+
 const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "24h" });
 };
@@ -15,7 +15,7 @@ export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    // Check if user already exists
+    
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
@@ -24,20 +24,17 @@ export const registerUser = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 12); // Increased salt rounds
 
-    // Create a new user
     const newUser = new User({
       name,
       email,
       password: hashedPassword,
     });
 
-    // Save the user to the database
+
     await newUser.save();
 
-    // Generate a JWT token
     const token = generateToken(newUser._id);
 
-    // Return user data (without password) and token
     res.status(201).json({
       token,
       user: {
@@ -56,22 +53,20 @@ export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Find the user by email (include password for comparison)
+    
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // Check if the password is correct
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // Generate a JWT token
     const token = generateToken(user._id);
 
-    // Return user data (without password) and token
+   
     res.status(200).json({
       token,
       user: {
@@ -88,12 +83,12 @@ export const loginUser = async (req, res) => {
 
 export const getCurrentUser = async (req, res) => {
   try {
-    // User should be attached to req by your protect middleware
+  
     if (!req.user) {
       return res.status(401).json({ error: "Not authorized" });
     }
 
-    // Return user data without sensitive information
+    
     res.json({
       success: true,
       user: {

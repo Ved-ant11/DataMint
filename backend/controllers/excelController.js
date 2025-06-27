@@ -7,7 +7,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Get current directory for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -25,7 +24,6 @@ const generateUniqueFilename = () => {
   return `export_${timestamp}_${random}.xlsx`;
 };
 
-// Flatten nested JSON objects
 const flattenObject = (obj, prefix = "") => {
   let flattened = {};
 
@@ -40,7 +38,6 @@ const flattenObject = (obj, prefix = "") => {
       ) {
         Object.assign(flattened, flattenObject(obj[key], newKey));
       } else if (Array.isArray(obj[key])) {
-        // Convert arrays to comma-separated strings
         flattened[newKey] = obj[key].join(", ");
       } else {
         flattened[newKey] = obj[key];
@@ -70,10 +67,8 @@ export const convertToExcel = async (req, res) => {
       });
     }
 
-    // Flatten the data
     const flattenedData = processedData.map((item) => flattenObject(item));
 
-    // Verify flattened data is valid
     if (
       flattenedData.length === 0 ||
       Object.keys(flattenedData[0] || {}).length === 0
@@ -84,11 +79,10 @@ export const convertToExcel = async (req, res) => {
       });
     }
 
-    // Create workbook and worksheet
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(flattenedData);
 
-    // Add some formatting
+  
     if (worksheet["!ref"]) {
       const range = XLSX.utils.decode_range(worksheet["!ref"]);
       worksheet["!cols"] = [];
@@ -100,7 +94,6 @@ export const convertToExcel = async (req, res) => {
 
     XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
 
-    // Ensure exports directory exists
     const outputDir = path.resolve(__dirname, "..", "exports");
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });

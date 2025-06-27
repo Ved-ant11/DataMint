@@ -44,7 +44,6 @@ export default function Header() {
   );
 }
 
-// Helper for active nav link styling
 function NavLink({ to, label, location }) {
   const isActive = location.pathname === to;
   return (

@@ -17,13 +17,11 @@ export default function JsonGenerator({ setJsonData, setLoading, setError }) {
       let response;
 
       if (selectedTemplate) {
-        // Template-based generation
         response = await api.post("/json/generate", {
           template: selectedTemplate,
           count,
         });
       } else {
-        // AI-based generation
         response = await api.post("/json/generate-ai", {
           prompt,
           count,
