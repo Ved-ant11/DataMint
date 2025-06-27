@@ -1,76 +1,33 @@
-<h2>✨ DataMint <h2/>
-Instantly generate, validate, and export real-world data with AI.
+# DataMint
 
-🚦 What the project does
-DataMint is a full-stack, open-source platform that empowers you to:
+**DataMint** is a modern, full-stack web application for generating, validating, and exporting realistic data using AI and ready-made templates. Instantly create JSON datasets from prompts or templates, and export them as Excel files—all with a beautiful, responsive UI.
 
-🧠 Generate realistic JSON data from AI prompts or business templates
+---
 
-📑 Validate and preview your data in a beautiful, animated UI
+## ✨ Features
 
-📥 Export datasets as Excel files in one click
+- **AI-Driven Data Generation**  
+  Instantly create realistic, structured JSON datasets from simple prompts using OpenAI.
 
-🔒 Authenticate securely with JWT-based login/register
+- **One-Click Excel Export**  
+  Convert any dataset to a polished Excel file in seconds.
 
-📊 Track your activity with a real-time dashboard
+- **Enterprise-Ready Templates**  
+  Choose from a curated library of business templates—user profiles, products, HR, finance, and more.
 
+- **Authentication**  
+  Secure registration and login with JWT.
 
-💡 Why the project is useful
-Save hours on test data creation for development, analytics, or demos
+- **Modern UI**  
+  Built with React, shadcn/ui, Tailwind CSS, Framer Motion, and GSAP.
 
-No more manual scripting—just describe your data or pick a template
+---
 
-Export to Excel instantly for sharing, importing, or reporting
+## Tech Stack
+- **Frontend**
+  React (Vite), shadcn/ui, Tailwind CSS, Framer Motion, GSAP, Axios, React Hook Form, Zod
 
-Modern, responsive UI with glassmorphism and smooth animations
+- **Backend**
+  Node.js, Express, MongoDB, JWT, bcrypt, XLSX, CORS
 
-Open source—use, modify, or contribute freely
-
-
-How users can get started with the project
-
-Clone the repository:
-bash
-git clone https://github.com/Ved-ant11/DataMint.git
-cd DataMint
-
-Set up the backend:
-bash
-cd backend
-cp .env.example .env    # Fill in your MongoDB URI, JWT secret, etc.
-npm install
-npm run dev
-Set up the frontend:
-
-bash
-cd ../frontend
-cp .env.example .env    # Set VITE_BACKEND_URL to your backend URL
-npm install
-npm run dev
-Open in your browser:
-
-Deploying?
-
-Frontend: Deploy to Vercel
-
-Backend: Deploy to Render
-
-Set environment variables as described above.
-
-📚 API Overview
-Authentication
-POST /api/auth/register — Register a new user
-
-POST /api/auth/login — Login and receive JWT
-
-GET /api/auth/me — Get current user (JWT required)
-
-Data Generation
-POST /api/json/generate-ai — Generate JSON from AI prompt
-
-POST /api/json/generate — Generate JSON from a template
-
-Excel Export
-POST /api/excel/convert — Convert JSON to Excel, returns download link
-
-GET /api/excel/download/:filename — Download Excel file
+---
