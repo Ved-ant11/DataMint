@@ -1,4 +1,4 @@
-✨ DataMint
+<h2>✨ DataMint <h2/>
 Instantly generate, validate, and export real-world data with AI.
 
 🚦 What the project does
