@@ -15,12 +15,9 @@ function App() {
       <Router>
         <Layout>
           <Routes>
-            {/* Public routes */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-
-            {/* Protected routes */}
             <Route
               path="/dashboard"
               element={
@@ -37,8 +34,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
-            {/* 404 catch-all route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
