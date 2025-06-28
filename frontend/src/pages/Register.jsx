@@ -3,21 +3,24 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import RegisterForm from "@/components/auth/RegisterForm";
 import api from "@/services/api";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Register() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (data) => {
     try {
-      await api.post("/auth/register", {
+      const response = await api.post("/auth/register", {
         name: data.name,
         email: data.email,
         password: data.password,
       });
-      navigate("/login");
+      login(response.data.token, response.data.user); // Set both token and user
+      navigate("/dashboard");
     } catch (error) {
       alert(
-        error.response?.data?.error ||
+        error.response?.data?.message ||
           error.message ||
           "Registration failed. Please try again."
       );

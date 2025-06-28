@@ -3,24 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import LoginForm from "@/components/auth/LoginForm";
 import api from "@/services/api";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (data) => {
     try {
       const response = await api.post("/auth/login", data);
-      localStorage.setItem("token", response.data.token);
+      login(response.data.token, response.data.user); // Set both token and user
       navigate("/dashboard");
     } catch (error) {
       alert(
-        error.response?.data?.error ||
+        error.response?.data?.message ||
           error.message ||
           "Login failed. Please try again."
       );
     }
   };
-
   return (
     <motion.div
       className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-950 to-black"
