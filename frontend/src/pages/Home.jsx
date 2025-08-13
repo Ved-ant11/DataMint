@@ -83,7 +83,7 @@ export default function Home() {
         className="mt-10"
       >
         <a
-          href="/generator"
+          href = "/login"
           className="inline-block px-8 py-4 bg-primary-600 text-white text-xl font-bold rounded-lg shadow-lg hover:bg-primary-700 transition-colors"
         >
           Try DataMint Now &rarr;
