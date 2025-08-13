@@ -82,12 +82,12 @@ export default function Home() {
         transition={{ delay: 0.6 }}
         className="mt-10"
       >
-        <a
-          href = "/login"
+        <Link
+          to="/login"
           className="inline-block px-8 py-4 bg-primary-600 text-white text-xl font-bold rounded-lg shadow-lg hover:bg-primary-700 transition-colors"
         >
           Try DataMint Now &rarr;
-        </a>
+        </Link>
         <p className="mt-4 text-gray-400 text-sm">
           No credit card required. Start generating data in under 60 seconds.
         </p>
